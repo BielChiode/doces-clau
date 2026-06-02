@@ -62,7 +62,6 @@ export const metadata: Metadata = {
     description: 'Confeitaria artesanal · Bolos, brigadeiros e doces sob encomenda.',
     images: ['/logo.jpg'],
   },
-  icons: { icon: '/favicon.ico', apple: '/apple-icon.png' },
 };
 
 export const viewport: Viewport = {
