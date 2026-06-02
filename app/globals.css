@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+@theme {
+  /* ===== Paleta Doces Clau ===== */
+  --color-rose: #e8c8be;
+  --color-peach: #f5dcd0;
+  --color-cream: #faf5f0;
+  --color-cream-2: #f3eae0;
+  --color-ink: #2a2522;
+  --color-ink-soft: #4a3f3a;
+  --color-wine: #5b2a2a;
+  --color-wine-deep: #3e1c1c;
+  --color-copper: #b08864;
+  --color-copper-deep: #8a6749;
+  --color-blush-deep: #c99a8e;
+
+  /* ===== Tipografia ===== */
+  --font-display: var(--font-fraunces), "Fraunces", "Times New Roman", serif;
+  --font-script: var(--font-caveat), "Caveat", cursive;
+  --font-sans: var(--font-inter-tight), "Inter Tight", system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--color-wine);
+    color: var(--color-cream);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-script  { font-family: var(--font-script); }
+  .font-sans-tight { font-family: var(--font-sans); }
+
+  /* Filete cobre com losango central */
+  .divider-rule {
+    position: relative;
+    height: 1px;
+    background: var(--color-copper);
+    opacity: 0.45;
+  }
+  .divider-rule::before {
+    content: "";
+    position: absolute;
+    inset: auto auto auto 50%;
+    width: 7px;
+    height: 7px;
+    background: var(--color-copper);
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  /* Imagem com borda orgânica (referência ao logo circular) */
+  .organic-shape {
+    border-radius: 60% 40% 50% 50% / 50% 55% 45% 50%;
+  }
+  .organic-shape-2 {
+    border-radius: 45% 55% 60% 40% / 55% 45% 50% 50%;
+  }
+
+  /* Filtro warm sutil para imagens */
+  .warm-image {
+    filter: saturate(1.05) contrast(1.02);
+  }
+
+  /* Marquee horizontal infinito */
+  @keyframes marquee-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee-x 38s linear infinite;
+  }
+
+  /* Marquee vertical */
+  @keyframes marquee-y {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+  }
+  .animate-marquee-y {
+    animation: marquee-y 50s linear infinite;
+  }
+
+  /* Rotação infinita (texto circular do FAB) */
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 16s linear infinite;
+  }
+
+  /* Reveal sutil */
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    animation: rise-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .reveal-delay-1 { animation-delay: 80ms; }
+  .reveal-delay-2 { animation-delay: 180ms; }
+  .reveal-delay-3 { animation-delay: 320ms; }
+  .reveal-delay-4 { animation-delay: 480ms; }
+  .reveal-delay-5 { animation-delay: 640ms; }
+
+  /* Hover overlay para ProductCard */
+  .product-card-image {
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .product-card:hover .product-card-image {
+    transform: scale(1.05);
+  }
+  .product-card-overlay {
+    opacity: 0;
+    transition: opacity 350ms ease;
+  }
+  .product-card:hover .product-card-overlay {
+    opacity: 1;
+  }
+
+  /* "01 — " number ornamental */
+  .chapter-number {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-copper);
+    letter-spacing: 0.02em;
+  }
+
+  /* Stripe pattern fundo (sobre/seção secundária) */
+  .stripe-bg {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 22px,
+      rgba(176, 136, 100, 0.05) 22px,
+      rgba(176, 136, 100, 0.05) 23px
+    );
+  }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .animate-marquee-y,
+    .animate-spin-slow {
+      animation: none !important;
+    }
+    .reveal {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .product-card-image {
+      transition: none !important;
+    }
+  }
+}
